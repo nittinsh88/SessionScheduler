@@ -30,7 +30,14 @@ public class TalkMapper {
             intMinutes = Integer.parseInt(minutes);
             totalMinutes = totalMinutes + intMinutes;
         }
-        talksMap.put(title, totalMinutes);
+        
+        //to take care of duplicate titles
+        // needs chnages for more than one duplicates this will handle only one 
+        if(talksMap.get(title) == null){
+        talksMap.put(title, totalMinutes);}
+        else{
+        	title=title+" D";
+        	talksMap.put(title, totalMinutes);}
         
 		
 		}

@@ -52,7 +52,6 @@ public class TrackScheduler {
 			setTracks(talks, track);
 			talks = new HashMap<>(remainigtalks);
 		}
-
 		return tracks;
 
 	}
@@ -90,7 +89,7 @@ public class TrackScheduler {
 			// setEveningTracks();
 			if (sum240 >= entry.getValue()) {
 				sum240 = sum240 - entry.getValue();
-				String sessionSlot = eveningTime.format(dateTimeFormatter) + " " + entry.getKey() + "  "
+				String sessionSlot = eveningTime.format(dateTimeFormatter) + " " + (entry.getKey().lastIndexOf(" D")==-1?entry.getKey():entry.getKey().replaceAll(" D", "")) + "  "
 						+ (entry.getValue().equals(5) ? "lightning" : entry.getValue() + "min");
 				track.add(sessionSlot);
 				remainigtalks.remove(entry.getKey());
@@ -100,7 +99,10 @@ public class TrackScheduler {
 			if (sum240 > 0)
 				continue;
 		}
-
+		if (!alreadySet) {
+			setLunch(track);
+			alreadySet = true;
+		}
 		setColleguesEvent(track, eveningTime);
 	}
 
